@@ -528,10 +528,10 @@ class fcpohelper extends oxBase {
      * @return bool
      */
     protected function _fcUseDeprecatedInstantiation() {
-        if ( 
-            ( $this->_oFcConfig->getVersion() < "4.8.0" && $this->_oFcConfig->getEdition() == "CE" ) || 
-            ( $this->_oFcConfig->getVersion() < "4.8.0" && $this->_oFcConfig->getEdition() == "PE" ) || 
-            ( $this->_oFcConfig->getVersion() < "5.1.0" && $this->_oFcConfig->getEdition() == "EE" )
+        if (
+            ( version_compare($this->_oFcConfig->getVersion(), "4.8.0") < 1 && $this->_oFcConfig->getEdition() == "CE" ) ||
+            ( version_compare($this->_oFcConfig->getVersion(), "4.8.0") < 1 && $this->_oFcConfig->getEdition() == "PE" ) ||
+            ( version_compare($this->_oFcConfig->getVersion(), "5.1.0") < 1 && $this->_oFcConfig->getEdition() == "EE" )
         ) {
             return true;
         } else {
