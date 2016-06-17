@@ -340,7 +340,28 @@ $aLang = array(
     
 'FCPO_CC_IFRAME_STANDARD'                   => 'Standard',
 'FCPO_CC_IFRAME_CUSTOM'                     => 'Custom',
-    
+
+'fcpo_clearingtype_fcpoklarna_install'      => 'Klarna Installment',
+'FCPO_HELP_ASSIGNCOUNTRIES_2'               => 'If no countries are assigned, the payment method is valid for all countries.<br><br>If countries are assigned, the payment method is only valid for the assigned countries.<br><br>Countries for invoice and shipping address will be validated.',
+'FCPO_HELP_ASSIGNCOUNTRIES_3'               => 'If no countries are assigned, the payment method is valid for all countries.<br><br>If countries are assigned, the payment method is only valid for the assigned countries.<br><br>Countries for invoice and shipping address will be validated.',
+'FCPO_CAPTURE_AMOUNT_GREATER_NULL'          => 'The amount to capture must be larger than 0.00!',
+'FCPO_PREAUTHORIZED_AMOUNT'                 => 'Preauthorized amount',
+'FCPO_SAVEBANKDATA'                         => 'Saving the bank data',
+'FCPO_HELP_SAVEBANKDATA'                    => 'The customer\'s bank data will be encrypted and saved according to the Oxid standard, and thus is available for the customer in their next checkout.',
+'FCPO_KLARNA_CAMPAIGNS'                     => 'Campaigns',
+'FCPO_KLARNA_CAMPAIGN_CODE'                 => 'campaign code',
+'FCPO_KLARNA_CAMPAIGN_TITLE'                => 'Title',
+'FCPO_KLARNA_ADD_CAMPAIGN'                  => 'add another campaign',
+'FCPO_CONFIG_DEBIT_BANKDATA'                => 'Entering the bank data',
+'FCPO_CONFIG_DEBIT_MULTISELECT'             => 'List of supported bank countries.<br>Hold Ctrl to select multiple countries.',
+'FCPO_CONFIG_DEBIT_GER'                     => 'Only for German accounts',
+'FCPO_CONFIG_DEBIT_SHOW_OLD_FIELDS'         => 'show account number and bank code',
+'FCPO_CONFIG_DEBIT_MANDATE'                 => 'Granting a mandate',
+'FCPO_CONFIG_DEBIT_MANDATE_TEXT'            => 'The mandate will be granted using the request "managemandate."<br>This request also serves as a bank account check. However, it is not possible<br>to query the POS blacklist.',
+'FCPO_CONFIG_DEBIT_MANDATE_ACTIVE'          => 'Mandate management activated',
+'FCPO_CONFIG_DEBIT_MANDATE_DOWNLOAD'        => 'Download mandate as PDF',
+'FCPO_CONFIG_DEBIT_MANDATE_DOWNLOAD_TEXT'   => 'This option can only be activated when the product<br>"SEPA-Mandate as PDF" was purchased at PAYONE.',
+'FCPO_CONFIG_DEBIT_MANDATE_DOWNLOAD_ACTIVE' => 'Download mandate as PDF',
 );
 
 /*
