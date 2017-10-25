@@ -147,13 +147,13 @@ class fcpoerrormapping extends oxBase {
                 $sLangId = $oLanguage->id;
             }
         }
-        
+
         $sMappedMessage = '';
-        if ($sLangId) {
+        if ($sLangId !== false) {
             $sQuery = $this->_fcpoGetSearchQuery($sErrorCode, $sLangId);
             $sMappedMessage = $this->_oFcpoDb->GetOne($sQuery);
         }
-        
+
         return $sMappedMessage;
     }
     
@@ -292,7 +292,7 @@ class fcpoerrormapping extends oxBase {
             fcpo_lang_id = {$sLangId}
             LIMIT 1
         ";
-            
+
         return $sQuery;
     }
 
