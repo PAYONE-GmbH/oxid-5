@@ -461,6 +461,7 @@ class fcpohelper extends oxBase {
             'vsettlement',
             'transfer',
             'invoice',
+            'failed',
         );
     }
 

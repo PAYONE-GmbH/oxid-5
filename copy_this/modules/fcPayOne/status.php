@@ -262,12 +262,58 @@ class fcPayOneTransactionStatusHandler extends oxBase {
     protected function _handleMapping($oOrder) {
         $sPayoneStatus = $this->fcGetPostParam('txaction');
         $sPaymentId = mysql_real_escape_string($oOrder->oxorder__oxpaymenttype->value);
-        
         $sQuery = "SELECT fcpo_folder FROM fcpostatusmapping WHERE fcpo_payonestatus = '{$sPayoneStatus}' AND fcpo_paymentid = '{$sPaymentId}' ORDER BY oxid ASC LIMIT 1";
         $sFolder = oxDb::getDb()->GetOne($sQuery);
         if(!empty($sFolder)) {
             $sQuery = "UPDATE oxorder SET oxfolder = '{$sFolder}' WHERE oxid = '{$oOrder->getId()}'";
             oxDb::getDb()->Execute($sQuery);
+        }
+    }
+
+    protected function _handleNotification($oOrder) {
+        $sPayoneStatus = $this->fcGetPostParam('txaction');
+        $sPaymentId = mysql_real_escape_string($oOrder->oxorder__oxpaymenttype->value);
+
+        $sNotificationType = $this->_fcpoDetermineNotificationType($sPayoneStatus, $sPaymentId);
+
+        switch ($sNotificationType) {
+            case 'email_amazonpay_failed':
+                $this->_fcpoSendEmail($sNotificationType, $oOrder);
+                break;
+        }
+    }
+
+    protected function _fcpoSendMail($sNotificationType, $oOrder) {
+        $oEmail = oxNew('oxemail');
+        $sSubject = $this->_fcpoGetSubjectByNotificationType($sNotificationType);
+        $sBody = $this->_fcpoGetBodyByNotificationType($sNotificationType, $oOrder);
+
+        /**
+         * @todo: sending mail to customer
+         */
+    }
+
+    protected function _fcpoGetSubjectByNotificationType($sNotificationType) {
+        /**
+         * @todo: create subject by given notification type
+         */
+    }
+
+    protected function _fcpoGetBodyByNotificationType($sNotificationType, $oOrder) {
+        /**
+         * @todo: create personalized body by given notification type and orderdata
+         */
+    }
+
+    protected function _fcpoDetermineNotificationType($sPayoneStatus, $sPaymentId) {
+        switch($sPaymentId) {
+            case 'fcpoamazonpay':
+                if ($sPayoneStatus == 'failed') {
+                    $sReturn = 'email_amazonpay_failed';
+                }
+                break;
+            default:
+                $sReturn = 'none';
         }
     }
     
@@ -289,6 +335,7 @@ class fcPayOneTransactionStatusHandler extends oxBase {
                 }
 
                 $this->_handleMapping($oOrder);
+                $this->_handleNotification($oOrder);
             }
             $this->_handleForwarding();
 

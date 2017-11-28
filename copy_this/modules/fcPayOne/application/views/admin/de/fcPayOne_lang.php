@@ -258,6 +258,7 @@ $aLang = array(
     'fcpo_status_vsettlement'                   => "Abrechnung eines Abrechnungskontos (VSETTLEMENT)",
     'fcpo_status_transfer'                      => "Umbuchung (TRANSFER)",
     'fcpo_status_invoice'                       => "Erzeugung eines Belegs (INVOICE)",
+    'fcpo_status_failed'                        => "Fehlgeschlagen (failed)",
 
     'FCPO_KLARNA_STORE_ID_ADMIN'                => "StoreIDs",
     'FCPO_KLARNA_ADD_STORE_ID'                  => "weitere StoreID hinzufügen",
