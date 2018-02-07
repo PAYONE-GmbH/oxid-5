@@ -22,7 +22,7 @@
         <script src="[{$oViewConf->fcpoGetModuleJsPath('jquery-1.10.1.min.js')}]"></script>
         <script src="[{$oViewConf->fcpoGetModuleJsPath()}]lightview/lightview.js"></script>
         <input type="hidden" name="fcpo_mode_[{$sPaymentID}]" value="[{$paymentmethod->fcpoGetOperationMode()}]">
-        
+
         [{if $oView->fcpoShowB2C()}]
             <div class="form-group">
                 <label class="req control-label col-lg-3">[{oxmultilang ident="FCPO_PAYOLUTION_BIRTHDATE"}]</label>
@@ -52,7 +52,7 @@
             <div class="col-lg-9">
                 <input class="form-control js-oxValidate js-oxValidate_notEmpty"  type="text" size="20" maxlength="64" name="dynvalue[fcpo_payolution_debitnote_accountholder]" value="[{$dynvalue.fcpo_payolution_debitnote_accountholder}]" onkeyup="fcHandleDebitInputs();return false;" required="required">
             </div>
-        </div> 
+        </div>
         <div class="form-group">
             <label class="req control-label col-lg-3">[{oxmultilang ident="FCPO_BANK_IBAN"}]</label>
             <div class="col-lg-9">
@@ -75,20 +75,24 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="alert alert-info col-lg-offset-3 desc">
             <input name="dynvalue[fcpo_payolution_debitnote_agreed]" value="agreed" type="checkbox">&nbsp;[{oxmultilang ident="FCPO_PAYOLUTION_AGREEMENT_PART_1"}] <a href='[{$oView->fcpoGetPayolutionAgreementLink()}]' class="lightview fcpoPayolutionAgreeRed" data-lightview-type="iframe" data-lightview-options="width: 800, height: 600, viewport: 'scale',background: { color: '#fff', opacity: 1 },skin: 'light'">[{oxmultilang ident="FCPO_PAYOLUTION_AGREE"}]</a> [{oxmultilang ident="FCPO_PAYOLUTION_AGREEMENT_PART_2"}]
         </div>
         <div class="alert alert-info col-lg-offset-3 desc">
             <input name="dynvalue[fcpo_payolution_debitnote_sepa_agreed]" value="agreed" type="checkbox">&nbsp;[{oxmultilang ident="FCPO_PAYOLUTION_SEPA_AGREEMENT_PART_1"}] <a href='[{$oView->fcpoGetPayolutionSepaAgreementLink()}]' class="lightview fcpoPayolutionAgreeRed" data-lightview-type="iframe" data-lightview-options="width: 800, height: 600, viewport: 'scale',background: { color: '#fff', opacity: 1 },skin: 'light'">[{oxmultilang ident="FCPO_PAYOLUTION_SEPA_AGREE"}]</a>
         </div>
-        
+
         [{block name="checkout_payment_longdesc"}]
-            [{if $paymentmethod->oxpayments__oxlongdesc->value}]
-                <div class="desc">
-                    [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
-                </div>
-            [{/if}]
+			[{if $paymentmethod->oxpayments__oxlongdesc->value|trim }]
+				<div class="row">
+					<div class="col-xs-12 col-lg-9 col-lg-offset-3">
+						<div class="alert alert-info">
+							[{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
+						</div>
+					</div>
+				</div>
+			[{/if}]
         [{/block}]
     </dd>
 </dl>

@@ -23,7 +23,7 @@
         <link href="[{$oViewConf->fcpoGetModuleCssPath('lightview.css')}]" rel="stylesheet">
         <script src="[{$oViewConf->fcpoGetModuleJsPath('jquery-1.10.1.min.js')}]"></script>
         <script src="[{$oViewConf->fcpoGetModuleJsPath()}]lightview/lightview.js"></script>
-        [{if $oView->fcpoShowB2B()}]        
+        [{if $oView->fcpoShowB2B()}]
             <div class="form-group">
                 <label class="req control-label col-lg-3">[{oxmultilang ident="FCPO_PAYOLUTION_USTID"}]</label>
                 <div class="col-lg-9">
@@ -67,11 +67,15 @@
         </div>
 
         [{block name="checkout_payment_longdesc"}]
-            [{if $paymentmethod->oxpayments__oxlongdesc->value}]
-                <div class="alert alert-info col-lg-offset-3 desc">
-                    [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
-                </div>
-            [{/if}]
+			[{if $paymentmethod->oxpayments__oxlongdesc->value|trim }]
+				<div class="row">
+					<div class="col-xs-12 col-lg-9 col-lg-offset-3">
+						<div class="alert alert-info">
+							[{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
+						</div>
+					</div>
+				</div>
+			[{/if}]
         [{/block}]
     </dd>
 </dl>

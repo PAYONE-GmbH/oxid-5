@@ -29,7 +29,7 @@
                             <ul role="alert" class="list-unstyled text-danger">
                                 <li>[{oxmultilang ident="FCPO_ERROR"}]<div id="fcpo_ou_error_content"></div></li>
                             </ul>
-                        </span>       
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -144,10 +144,14 @@
                     </div>
                 </div>
                 [{block name="checkout_payment_longdesc"}]
-                    [{if $paymentmethod->oxpayments__oxlongdesc->value}]
-                        <div class="alert alert-info col-lg-offset-3 desc">
-                            [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
-                        </div>
+					[{if $paymentmethod->oxpayments__oxlongdesc->value|trim }]
+						<div class="row">
+							<div class="col-xs-12 col-lg-9 col-lg-offset-3">
+								<div class="alert alert-info">
+			                        [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
+				                </div>
+							</div>
+						</div>
                     [{/if}]
                 [{/block}]
             </dd>
