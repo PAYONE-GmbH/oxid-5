@@ -54,7 +54,7 @@
                         <div class="col-lg-9">
                             <span id="cardcvc2" class="inputIframe"></span>
                         </div>
-                    </div>        
+                    </div>
                 [{/if}]
                 <div class="form-group">
                     <label for="expireInput" class="req control-label col-lg-3">[{oxmultilang ident="FCPO_VALID_UNTIL"}]</label>
@@ -84,10 +84,14 @@
                 </div>
                 [{oxid_include_dynamic file=$oViewConf->fcpoGetAbsModuleTemplateFrontendPath('fcpo_payment_creditcard_script.tpl')}]
                 [{block name="checkout_payment_longdesc"}]
-                    [{if $paymentmethod->oxpayments__oxlongdesc->value}]
-                        <div class="alert alert-info col-lg-offset-3 desc">
-                            [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
-                        </div>
+					[{if $paymentmethod->oxpayments__oxlongdesc->value|trim }]
+						<div class="row">
+							<div class="col-xs-12 col-lg-9 col-lg-offset-3">
+								<div class="alert alert-info">
+			                        [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
+				                </div>
+							</div>
+						</div>
                     [{/if}]
                 [{/block}]
             </dd>

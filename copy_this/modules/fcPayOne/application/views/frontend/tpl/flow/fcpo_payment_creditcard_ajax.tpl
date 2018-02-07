@@ -129,10 +129,14 @@
                 [{/if}]
                 <div class="clearfix"></div>
                 [{block name="checkout_payment_longdesc"}]
-                    [{if $paymentmethod->oxpayments__oxlongdesc->value}]
-                        <div class="alert alert-info col-lg-offset-3 desc">
-                            [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
-                        </div>
+					[{if $paymentmethod->oxpayments__oxlongdesc->value|trim }]
+						<div class="row">
+							<div class="col-xs-12 col-lg-9 col-lg-offset-3">
+								<div class="alert alert-info">
+			                        [{$paymentmethod->oxpayments__oxlongdesc->getRawValue()}]
+				                </div>
+							</div>
+						</div>
                     [{/if}]
                 [{/block}]
             </dd>
