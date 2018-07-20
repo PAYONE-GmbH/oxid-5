@@ -481,6 +481,9 @@ class fcpoRequest extends oxSuperCfg {
             case 'fcpo_secinvoice':
                 $blAddRedirectUrls = $this->_fcpoAddSecInvoiceParameters($oOrder);
                 break;
+            case 'fcpomasterpass':
+                $blAddRedirectUrls = $this->_fcpoAddMasterpassParameters($oOrder);
+                break;
             default:
                 return false;
         }
@@ -488,6 +491,23 @@ class fcpoRequest extends oxSuperCfg {
         if ($blAddRedirectUrls === true) {
             $this->_addRedirectUrls('payment', $sRefNr);
         }
+        return true;
+    }
+
+    /**
+     * Adds additional masterpass params
+     *
+     * @param void
+     * @return bool
+     */
+    protected function _fcpoAddMasterpassParameters() {
+        $sMasterpassWorkorderId =
+            $this->_oFcpoHelper->fcpoGetSessionVariable('fcpoMasterpassWorkorderId');
+
+        $this->addParameter('clearingtype', 'wlt');
+        $this->addParameter('wallettype', 'MPA');
+        $this->addParameter('workorderid', $sMasterpassWorkorderId);
+
         return true;
     }
 
@@ -1749,6 +1769,79 @@ class fcpoRequest extends oxSuperCfg {
 
         return $aResponse;
     }
+
+    /**
+     * Sending setcheckout call for initializing masterpass
+     * lightbox button solution.
+     *
+     * @param void
+     * @return array
+     */
+    public function fcpoSendRequestMasterpassSetcheckout() {
+        $oConfig = $this->_oFcpoHelper->fcpoGetConfig();
+        $oSession = $this->getSession();
+        $oBasket = $oSession->getBasket();
+        $oPrice = $oBasket->getPrice();
+        $sShopUrl = $oConfig->getShopUrl();
+        $sOriginUrl = $sBackUrl = $sShopUrl."/index.php?cl=basket";
+        $sErrorUrl = $sOriginUrl."&fcpoerror=FCPO_ERROR_MP_SETCHECKOUT";
+        $sSuccessUrl = $sShopUrl."/index.php?cl=payment&fnc=fcpomasterpasssuccessreturn";
+
+        $this->addParameter('request', 'genericpayment'); //Request method
+        $this->addParameter('mode', $this->getOperationMode('fcpomasterpass')); //PayOne Portal Operation Mode (live or test)
+        $this->addParameter('aid', $oConfig->getConfigParam('sFCPOSubAccountID')); //ID of PayOne Sub-Account
+        $this->addParameter('amount', number_format($oPrice->getBruttoPrice(), 2, '.', '') * 100);
+
+        $this->addParameter('clearingtype', 'wlt');
+        $this->addParameter('wallettype', 'MPA');
+
+        $this->addParameter('add_paydata[action]', 'setcheckout');
+        $this->addParameter('add_paydata[originURL]', $sOriginUrl);
+        $this->addParameter('backurl', $sBackUrl);
+        $this->addParameter('errorurl', $sErrorUrl);
+        $this->addParameter('successurl', $sSuccessUrl);
+
+        $oCurr = $oConfig->getActShopCurrencyObject();
+        $this->addParameter('currency', $oCurr->name);
+
+        return $this->send();
+    }
+
+    /**
+     * Requesting masterpass for customer params
+     *
+     * @param void
+     * @return array
+     */
+    public function fcpoSendRequestMasterpassGetCheckout() {
+        $oConfig = $this->getConfig();
+        $oUtils = $this->_oFcpoHelper->fcpoGetUtils();
+        $sShopUrl = $oConfig->getShopUrl();
+        $sWorkOrderId = $this->_oFcpoHelper->fcpoGetSessionVariable('fcpoMasterpassWorkorderId');
+        $sOriginUrl = $sBackUrl = $sShopUrl."/index.php?cl=basket";
+        $sErrorUrl = $sOriginUrl."&fcpoerror=FCPO_ERROR_MP_SETCHECKOUT";
+
+        // no workorderid in session? redirect to basket with error
+        if (!$sWorkOrderId) {
+            $oUtils->redirect($sErrorUrl);
+        }
+
+        $this->addParameter('request', 'genericpayment'); //Request method
+        $this->addParameter('mode', $this->getOperationMode('fcpomasterpass')); //PayOne Portal Operation Mode (live or test)
+        $this->addParameter('aid', $oConfig->getConfigParam('sFCPOSubAccountID')); //ID of PayOne Sub-Account
+
+        $this->addParameter('clearingtype', 'wlt');
+        $this->addParameter('wallettype', 'MPA');
+        $this->addParameter('add_paydata[action]', 'getcheckout');
+        $this->addParameter('add_paydata[originURL]', $sOriginUrl);
+        $this->addParameter('workorderid', $sWorkOrderId);
+
+        $oCurr = $oConfig->getActShopCurrencyObject();
+        $this->addParameter('currency', $oCurr->name);
+
+        return $this->send();
+    }
+
 
     protected function _stateNeeded($sIso2Country) {
         if (array_search($sIso2Country, $this->_aStateNeededCountries) !== false) {

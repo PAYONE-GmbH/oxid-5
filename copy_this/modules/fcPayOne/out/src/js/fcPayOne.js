@@ -770,7 +770,7 @@ function validateCardExpireDate(response) {
     month = fullMonth[month];
     var year = fullYear.toString();
     year = year.substr(2,4);
-    
+
     var currentYearMonth = year + month;
     var responseYearMonth = response.cardexpiredate;
     responseYearMonth = responseYearMonth.toString();
@@ -854,9 +854,11 @@ $('#payolution_installment_check_availability').click(function(){
         formParams += '"' + nameInBrackets + '":"' + inputValue + '"';
     });
     formParams += '}';
-    
+
+    var ajax_controller_url = $('#fcpo_ajax_controller_url').val();
+
     $.ajax({
-        url: 'modules/fcPayOne/application/models/fcpayone_ajax.php',
+        url: ajax_controller_url,
         method: 'POST',
         type: 'POST',
         dataType: 'text',
@@ -885,7 +887,38 @@ $('#payolution_installment_check_availability').click(function(){
                 $('#payolution_selected_installment_index').val(selectedInstallmentIndex);
             });
         }
-    });    
+    });
+});
+
+/**
+ * Triggers setcheckoutcall on button click
+ *
+ * @param void
+ */
+$('.js-payone-masterpass').on('click',function(){
+    var ajax_controller_url = $(this).data('payone-masterpass-controller');
+    var shop_url = $(this).data('payone-masterpass-shopurl');
+    $.ajax({
+        url: ajax_controller_url,
+        method: 'POST',
+        type: 'POST',
+        dataType: 'text',
+        data: { paymentid: "fcpomasterpass", action: "setcheckout" },
+        success: function(Response) {
+            var data = $.parseJSON(Response);
+            console.log(data);
+            MasterPass.client.checkout({
+                "requestToken": data.token,
+                "merchantCheckoutId": data.merchantCheckoutId,
+                "callbackUrl": data.callbackUrl,
+                "allowedCardTypes": data.allowedCardTypes,
+                "version": data.version
+            });
+        },
+        error: function() {
+            window.location = shop_url + 'index.php?cl=basket&fcpoerror=FCPO_ERROR_MP_SETCHECKOUT';
+        }
+    });
 });
 
 /**

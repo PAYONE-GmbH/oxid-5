@@ -62,6 +62,12 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
     protected $_sCurrentAmazonButtonId = null;
 
     /**
+     * Determines the source of a button include
+     * @var string|null
+     */
+    protected $_sCurrentMasterpassButtonId = null;
+
+    /**
      * Initializing needed things
      */
     public function __construct() {
@@ -221,6 +227,28 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
     public function fcpoGetLangAbbrById($sLangId) {
         $oLang = $this->_oFcpoHelper->fcpoGetLang();
         return $oLang->getLanguageAbbr($sLangId);
+    }
+
+    /**
+     * Returns if a complete set of salutations is available
+     *
+     * @param void
+     * @return bool
+     */
+    public function fcpoUserHasSalutation() {
+        $oSession = $this->_oFcpoHelper->fcpoGetSession();
+        $oBasket = $oSession->getBasket();
+        $oUser = $oBasket->getBasketUser();
+        $oAddress = $oUser->getSelectedAddress();
+        $sSalutation = $oUser->oxuser__oxsal->value;
+        $sSalutationDelAddress = $oAddress->oxaddress__oxsal->value;
+
+        $blHasSalutation = (
+            $sSalutation &&
+            $sSalutationDelAddress
+        );
+
+        return $blHasSalutation;
     }
 
     /**
@@ -506,6 +534,62 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
     }
 
     /**
+     * Template getter for receiving masterpass button url
+     *
+     * @param void
+     * @return string
+     */
+    public function fcpoGetMasterpassButtonImg() {
+        $sUrl = 'https://masterpass.com/dyn/img/btn/global/mp_chk_btn_147x034px.svg';
+
+        return $sUrl;
+    }
+
+    /**
+     * Returns url of masterpass js library depending on set mode
+     *
+     * @param void
+     * @return string
+     */
+    public function fcpoGetMasterpassJsLibUrl() {
+        $oPayment = $this->_oFcpoHelper->getFactoryObject('oxpayment');
+        $oPayment->load('fcpomasterpass');
+        $blIsLive = $oPayment->oxpayments__fcpolivemode->value;
+
+        $sUrl = "https://sandbox.masterpass.com/lightbox/Switch/integration/MasterPass.client.js";
+        if ($blIsLive) {
+            $sUrl = "https://www.masterpass.com/lightbox/Switch/integration/MasterPass.client.js";
+        }
+
+        return $sUrl;
+    }
+
+    /**
+     * Template getter for deciding if masterpass button can be shown
+     *
+     * @param void
+     * @return bool
+     */
+    public function fcpoCanDisplayMasterpassButton() {
+        $oPayment = $this->_oFcpoHelper->getFactoryObject('oxpayment');
+        $oPayment->load('fcpomasterpass');
+        $blIsActive = (bool) $oPayment->oxpayments__oxactive->value;
+
+        return $blIsActive;
+    }
+
+    /**
+     * References current button id set in template
+     * for determine the last masterpass button on current page
+     *
+     * @param string $sButtonId
+     * @return void
+     */
+    public function fcpoSetCurrentMasterpassButtonId($sButtonId) {
+        $this->_sCurrentMasterpassButtonId = $sButtonId;
+    }
+
+    /**
      * Returns the expected amount of amazon buttons on current page
      *
      * @param void
@@ -528,6 +612,32 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
         return $iAmountExpectedButtons;
     }
 
+    /**
+     * Template getter for returning ajax controller url
+     *
+     * @param void
+     * @return string
+     * @todo class has to be moved into controller folder instead of models
+     */
+    public function fcpoGetAjaxControllerUrl() {
+        $oConfig = $this->getConfig();
+        $sShopUrl = $oConfig->getShopUrl();
+        $sPath = "modules/fcPayOne/application/models/fcpayone_ajax.php";
+        $sControllerPath = $sShopUrl.$sPath;
 
+        return $sControllerPath;
+    }
 
+    /**
+     * Template getter for returning shopurl
+     *
+     * @param void
+     * @return string
+     */
+    public function fcpoGetShopUrl() {
+        $oConfig = $this->getConfig();
+        $sShopUrl = $oConfig->getShopUrl();
+
+        return $sShopUrl;
+    }
 }

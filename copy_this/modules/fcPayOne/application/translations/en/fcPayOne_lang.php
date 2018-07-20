@@ -110,6 +110,7 @@ $aLang = array(
     'FCPO_KLS_CHOOSE_CAMPAIGN' => 'Please select a campaign',
     'FCPO_KLS_CAMPAIGN_INVALID' => 'You have to select a campaign.',
     'FCPO_KLS_NO_CAMPAIGN' => 'There are no installment-campaigns for your current combination of delivery-country, language and currency.<br>Please select another payment-type.',
+    'FCPO_MASTERPASS_LEARNMORE'                     => 'learn more',
 
     'FCPO_ORDER_MANDATE_HEADER' => 'SEPA direct debit',
     'FCPO_ORDER_MANDATE_INFOTEXT' => 'In order to debit the SEPA direct debit, we need a SEPA mandate from you.',
@@ -191,6 +192,7 @@ $aLang = array(
     'FCPO_BIRTHDATE_INVALID' => 'Your birthday data is not valid.',
     'FCPO_COMPANYDATA_INVALID' => 'Your company data is not complete. For ordering as a business entering either company name and VatId is mandatory.',
     'FCPO_RATEPAY_REJECTED_401' => 'Ratepay payment is faded currently. Please add text here.',
+    'FCPO_ERROR_MP_SETCHECKOUT'                     => "Due to technical reasons Masterpass can't be used currently. Please use another payment method. We apologize for any inconvienience.",
 );
 
 /*

@@ -76,10 +76,17 @@ class Unit_fcPayOne_Extend_Application_Controllers_fcPayOneBasketView extends Ox
     public function test_fcpoGetBasketErrorMessage_Coverage() {
         $oTestObject = oxNew('fcPayOneBasketView');
 
+        $oMockLang = $this->getMock('oxLang', array('translateString'));
+        $oMockLang
+            ->expects($this->any())
+            ->method('translateString')
+            ->will($this->returnValue('someMessage'));
+
         $oHelper = $this->getMock('fcpohelper',
             array(
                 'fcpoGetRequestParameter',
-                'fcpoDeleteSessionVariable'
+                'fcpoDeleteSessionVariable',
+                'fcpoGetLang'
             )
         );
         $oHelper
@@ -90,6 +97,10 @@ class Unit_fcPayOne_Extend_Application_Controllers_fcPayOneBasketView extends Ox
             ->expects($this->any())
             ->method('fcpoDeleteSessionVariable')
             ->will($this->returnValue(null));
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetLang')
+            ->will($this->returnValue($oMockLang));
         $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
 
         $this->assertEquals('someMessage', $oTestObject->fcpoGetBasketErrorMessage());

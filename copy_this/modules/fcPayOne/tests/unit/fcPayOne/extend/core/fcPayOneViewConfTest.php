@@ -528,6 +528,116 @@ class Unit_fcPayOne_Extend_Core_fcPayOneViewConf extends OxidTestCase {
     }
 
     /**
+     * Testing fcpoGetMasterPassButtonImg for coverage
+     */
+    public function test_fcpoGetMasterPassButtonImg_Coverage() {
+        $oTestObject = oxNew('fcPayOneViewConf');
+
+        $sExpect = 'https://masterpass.com/dyn/img/btn/global/mp_chk_btn_147x034px.svg';
+
+        $this->assertEquals($sExpect, $oTestObject->fcpoGetMasterPassButtonImg());
+    }
+
+    /**
+     * Testing fcpoGetMasterPassJsLibUrl for coverage
+     */
+    public function test_fcpoGetMasterPassJsLibUrl_Coverage() {
+        $oTestObject = oxNew('fcPayOneViewConf');
+
+        $oMockPayment = $this->getMock('oxPayment', array('load'));
+        $oMockPayment
+            ->expects($this->any())
+            ->method('load')
+            ->will($this->returnValue(true));
+        $oMockPayment->oxpayments__fcpolivemode = new oxField(true);
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('getFactoryObject')
+            ->will($this->returnValue($oMockPayment));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $sExpect =
+            "https://www.masterpass.com/lightbox/Switch/integration/MasterPass.client.js";
+
+        $this->assertEquals($sExpect, $oTestObject->fcpoGetMasterPassJsLibUrl());
+    }
+
+    /**
+     * Testing fcpoCanDisplayMasterpassButton for coverage
+     */
+    public function test_fcpoCanDisplayMasterpassButton_Coverage() {
+        $oTestObject = oxNew('fcPayOneViewConf');
+
+        $oMockPayment = $this->getMock('oxPayment', array('load'));
+        $oMockPayment
+            ->expects($this->any())
+            ->method('load')
+            ->will($this->returnValue(true));
+        $oMockPayment->oxpayments__oxactive = new oxField(true);
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('getFactoryObject')
+            ->will($this->returnValue($oMockPayment));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(true, $oTestObject->fcpoCanDisplayMasterpassButton());
+    }
+
+    /**
+     * Testing fcpoUserHasSalutation for coverage
+     */
+    public function test_fcpoUserHasSalutation_Coverage() {
+        $oTestObject = oxNew('fcPayOneViewConf');
+        $oMockAddress = oxNew('oxAddress');
+        $oMockAddress->oxaddress__oxsal = new oxField('MR');
+
+        $oMockUser = $this->getMock('oxUser', array('getSelectedAddress'));
+        $oMockUser
+            ->expects($this->any())
+            ->method('getSelectedAddress')
+            ->will($this->returnValue($oMockAddress));
+        $oMockUser->oxuser__oxsal = new oxField('MR');
+
+        $oMockBasket = $this->getMock('oxBasket', array('getBasketUser'));
+        $oMockBasket
+            ->expects($this->any())
+            ->method('getBasketUser')
+            ->will($this->returnValue($oMockUser));
+
+
+        $oMockSession = $this->getMock('oxSession', array('getBasket'));
+        $oMockSession
+            ->expects($this->any())
+            ->method('getBasket')
+            ->will($this->returnValue($oMockBasket));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetSession')
+            ->will($this->returnValue($oMockSession));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(true, $oTestObject->fcpoUserHasSalutation());
+    }
+
+    /**
      * Testing fcpoGetAllowIncludeAmazonWidgetUrl for coverage
      *
      * @param void

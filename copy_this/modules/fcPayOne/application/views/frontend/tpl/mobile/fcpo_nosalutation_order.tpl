@@ -1,5 +1,5 @@
 [{assign var="sFcPoTemplatePath" value=$oViewConf->fcpoGetActiveThemePath()}]
-[{assign var="sFcPoTemplatePath" value=$sFcPoTemplatePath|cat:'/fcpo_amazonpay_address.tpl'}]
+[{assign var="sFcPoTemplatePath" value=$sFcPoTemplatePath|cat:'/fcpo_nosalutation_address.tpl'}]
 
 <div id="orderAddress" class="row">
     <div class="col-xs-12 col-md-6">

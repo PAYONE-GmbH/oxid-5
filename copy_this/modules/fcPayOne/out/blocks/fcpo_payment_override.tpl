@@ -31,7 +31,6 @@
             };
     </script>
 
-    [{oxscript include=$oViewConf->fcpoGetModuleJsPath('fcPayOne.js')}]
     [{oxstyle include=$oViewConf->fcpoGetModuleCssPath('fcpayone.css')}]
 
     [{$smarty.block.parent}]

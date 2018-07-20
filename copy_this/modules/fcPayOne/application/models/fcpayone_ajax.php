@@ -60,6 +60,48 @@ class fcpayone_ajax extends oxBase {
     }
 
     /**
+     * Calls masterpass setcheckoutcall for initializing
+     *
+     * @param void
+     * @return string
+     */
+    public function fcpoMasterpassSetcheckout() {
+        $oRequest = $this->_oFcpoHelper->getFactoryObject('fcporequest');
+        $aResponse = $oRequest->fcpoSendRequestMasterpassSetcheckout();
+
+        if ($aResponse['status'] == 'ERROR') {
+            header("HTTP/1.0 406 Not Acceptable");
+        }
+
+        $this->_oFcpoHelper->fcpoDeleteSessionVariable('fcpoMasterpassWorkorderId');
+        $this->_oFcpoHelper->fcpoSetSessionVariable('fcpoMasterpassWorkorderId', $aResponse['workorderid']);
+        $this->_oFcpoHelper->fcpoDeleteSessionVariable('paymentid');
+        $this->_oFcpoHelper->fcpoSetSessionVariable('paymentid', 'fcpomasterpass');
+        $sJson = $this->_fcpoFetchMasterpassInitDataAsJson($aResponse);
+        return $sJson;
+    }
+
+    /**
+     * Creates an array of response, translates it into json and returns it
+     *
+     * @param $aResponse
+     * @return string
+     */
+    protected function _fcpoFetchMasterpassInitDataAsJson($aResponse) {
+        $aJson = array(
+            'token'=>$aResponse['add_paydata[token]'],
+            'merchantCheckoutId'=>$aResponse['add_paydata[merchantCheckoutId]'],
+            'callbackUrl'=>$aResponse['add_paydata[callbackUrl]'],
+            'allowedCardTypes'=>$aResponse['add_paydata[allowedCardTypes]'],
+            'version'=>$aResponse['add_paydata[version]'],
+        );
+
+        $sJson = json_encode($aJson, JSON_UNESCAPED_SLASHES);
+
+        return $sJson;
+    }
+
+    /**
      * Triggers a call on payoneapi for handling ajax calls for referencedetails
      *
      * @param $sParamsJson
@@ -345,5 +387,9 @@ if ($sPaymentId) {
 
     if ($sAction == 'get_amazon_reference_details' && $sPaymentId == 'fcpoamazonpay') {
         $oPayoneAjax->fcpoGetAmazonReferenceId($sParamsJson);
+    }
+
+    if ($sAction == 'setcheckout' && $sPaymentId == 'fcpomasterpass') {
+        echo $oPayoneAjax->fcpoMasterpassSetcheckout();
     }
 }

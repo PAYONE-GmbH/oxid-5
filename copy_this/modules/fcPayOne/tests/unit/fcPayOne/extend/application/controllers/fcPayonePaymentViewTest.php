@@ -55,6 +55,156 @@ class Unit_fcPayOne_Extend_Application_Controllers_fcPayOnePaymentView extends O
     }
 
     /**
+     * Testing fcpoMasterpassSuccessReturn in case of error response
+     */
+    public function test_fcpoMasterpassSuccessReturn_ResponseError() {
+        $oMockConfig = $this->getMock('oxConfig', array(
+            'getShopUrl'
+        ));
+        $oMockConfig
+            ->expects($this->any())
+            ->method('getShopUrl')
+            ->will($this->returnValue('https://someurl.com'));
+
+        $oTestObject = $this->getMock('fcPayOnePaymentView', array(
+            'getConfig',
+            'render',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getConfig')
+            ->will($this->returnValue($oMockConfig));
+        $oTestObject
+            ->expects($this->any())
+            ->method('render')
+            ->will($this->returnValue(null));
+
+        $aMockResponse = array(
+            'status' => 'ERROR',
+        );
+
+        $oMockRequest = $this->getMock('fcporequest', array(
+            'fcpoSendRequestMasterpassGetCheckout'
+        ));
+        $oMockRequest
+            ->expects($this->any())
+            ->method('fcpoSendRequestMasterpassGetCheckout')
+            ->will($this->returnValue($aMockResponse));
+
+        $oMockUser = $this->getMock('oxUser', array(
+            'fcpoSetMasterpassUser'
+        ));
+        $oMockUser
+            ->expects($this->any())
+            ->method('fcpoSetMasterpassUser')
+            ->will($this->returnValue(false));
+
+        $oMockUtils = $this->getMock('oxUtils', array(
+            'redirect'
+        ));
+        $oMockUtils
+            ->expects($this->any())
+            ->method('redirect')
+            ->will($this->returnValue(null));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoSetSessionVariable')
+            ->will($this->returnValue(null));
+        $oHelper
+            ->expects($this->any())
+            ->method('getFactoryObject')
+            ->will($this->onConsecutiveCalls($oMockRequest, $oMockUser));
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetUtils')
+            ->will($this->returnValue($oMockUtils));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(null, $oTestObject->fcpoMasterpassSuccessReturn());
+    }
+
+    /**
+     * Testing fcpoMasterpassSuccessReturn in case of user creation failed
+     */
+    public function test_fcpoMasterpassSuccessReturn_CreateUserFailed() {
+        $oMockConfig = $this->getMock('oxConfig', array(
+            'getShopUrl'
+        ));
+        $oMockConfig
+            ->expects($this->any())
+            ->method('getShopUrl')
+            ->will($this->returnValue('https://someurl.com'));
+
+        $oTestObject = $this->getMock('fcPayOnePaymentView', array(
+            'getConfig',
+            'render',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getConfig')
+            ->will($this->returnValue($oMockConfig));
+        $oTestObject
+            ->expects($this->any())
+            ->method('render')
+            ->will($this->returnValue(null));
+
+        $aMockResponse = array(
+            'status' => 'OK',
+        );
+
+        $oMockRequest = $this->getMock('fcporequest', array(
+            'fcpoSendRequestMasterpassGetCheckout'
+        ));
+        $oMockRequest
+            ->expects($this->any())
+            ->method('fcpoSendRequestMasterpassGetCheckout')
+            ->will($this->returnValue($aMockResponse));
+
+        $oMockUser = $this->getMock('oxUser', array(
+            'fcpoSetMasterpassUser'
+        ));
+        $oMockUser
+            ->expects($this->any())
+            ->method('fcpoSetMasterpassUser')
+            ->will($this->returnValue(false));
+
+        $oMockUtils = $this->getMock('oxUtils', array(
+            'redirect'
+        ));
+        $oMockUtils
+            ->expects($this->any())
+            ->method('redirect')
+            ->will($this->returnValue(null));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoSetSessionVariable')
+            ->will($this->returnValue(null));
+        $oHelper
+            ->expects($this->any())
+            ->method('getFactoryObject')
+            ->will($this->onConsecutiveCalls($oMockRequest, $oMockUser));
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetUtils')
+            ->will($this->returnValue($oMockUtils));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(null, $oTestObject->fcpoMasterpassSuccessReturn());
+    }
+
+    /**
      * Testing getPaymentErrorText for coverage
      */
     public function test_getPaymentErrorText_Coverage() {
@@ -62,6 +212,82 @@ class Unit_fcPayOne_Extend_Application_Controllers_fcPayOnePaymentView extends O
         $sExpect = $sResponse = $oTestObject->getPaymentErrorText();
 
         $this->assertEquals($sExpect, $sResponse);
+    }
+
+
+    /**
+     * Testing fcpoMasterpassSuccessReturn in case of success
+     */
+    public function test_fcpoMasterpassSuccessReturn_Success() {
+        $oMockConfig = $this->getMock('oxConfig', array(
+            'getShopUrl'
+        ));
+        $oMockConfig
+            ->expects($this->any())
+            ->method('getShopUrl')
+            ->will($this->returnValue('https://someurl.com'));
+
+        $oTestObject = $this->getMock('fcPayOnePaymentView', array(
+            'getConfig',
+            'render',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getConfig')
+            ->will($this->returnValue($oMockConfig));
+        $oTestObject
+            ->expects($this->any())
+            ->method('render')
+            ->will($this->returnValue(null));
+
+        $aMockResponse = array(
+            'status' => 'OK',
+        );
+
+        $oMockRequest = $this->getMock('fcporequest', array(
+            'fcpoSendRequestMasterpassGetCheckout'
+        ));
+        $oMockRequest
+            ->expects($this->any())
+            ->method('fcpoSendRequestMasterpassGetCheckout')
+            ->will($this->returnValue($aMockResponse));
+
+        $oMockUser = $this->getMock('oxUser', array(
+            'fcpoSetMasterpassUser'
+        ));
+        $oMockUser
+            ->expects($this->any())
+            ->method('fcpoSetMasterpassUser')
+            ->will($this->returnValue(true));
+
+        $oMockUtils = $this->getMock('oxUtils', array(
+            'redirect'
+        ));
+        $oMockUtils
+            ->expects($this->any())
+            ->method('redirect')
+            ->will($this->returnValue(null));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoSetSessionVariable')
+            ->will($this->returnValue(null));
+        $oHelper
+            ->expects($this->any())
+            ->method('getFactoryObject')
+            ->will($this->onConsecutiveCalls($oMockRequest, $oMockUser));
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetUtils')
+            ->will($this->returnValue($oMockUtils));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(null, $oTestObject->fcpoMasterpassSuccessReturn());
     }
 
     /**

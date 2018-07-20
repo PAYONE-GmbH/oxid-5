@@ -55,7 +55,8 @@ class fcPayOnePayment extends fcPayOnePayment_parent {
         'fcpopo_installment',
         'fcporp_bill',
         'fcpoamazonpay',
-        'fcpo_secinvoice'
+        'fcpo_secinvoice',
+        'fcpomasterpass',
     );
 
     /**

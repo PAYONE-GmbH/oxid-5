@@ -102,6 +102,7 @@ $aLang = array(
     'FCPO_KLS_CHOOSE_CAMPAIGN'                      => 'Bitte w&auml;hlen Sie die entsprechende Kampagne',
     'FCPO_KLS_CAMPAIGN_INVALID'                     => 'Sie m&uuml;ssen eine Kampagne ausw&auml;hlen.',
     'FCPO_KLS_NO_CAMPAIGN'                          => 'F&uuml;r Ihre aktuelle Kombination aus Lieferland, Sprache und W&auml;hrung gibt es keine Ratenkauf-Optionen.<br>Bitte w&auml;hlen Sie eine andere Zahlart.',
+    'FCPO_MASTERPASS_LEARNMORE'                     => 'Mehr erfahren',
 
     'FCPO_ORDER_MANDATE_HEADER'                     => 'SEPA-Lastschrift',
     'FCPO_ORDER_MANDATE_INFOTEXT'                   => 'Damit wir die SEPA-Lastschrift von Ihrem Konto einziehen kÃ¶nnen, benÃ¶tigen wir von Ihnen ein SEPA-Lastschriftmandat.',
@@ -260,6 +261,7 @@ $aLang = array(
     'FCPO_NOT_ADULT'                                => 'Sie sind aufgrund Ihres Alters leider nicht berechtigt die gewählte Zahlart zu verwenden. Bitte wählen Sie eine andere Zahlart.',
     'FCPO_BIRTHDATE_INVALID'                        => 'Ihr Geburtsdatum wurde nicht korrekt eingegeben',
     'FCPO_COMPANYDATA_INVALID'                      => 'Ihre Firmendaten sind nicht vollständig. Für eine gewerbliche Bestellung ist die Angabe des Firmennamens und der UStId notwendig.',
+    'FCPO_ERROR_MP_SETCHECKOUT'                     => 'Aufgrund eines technischen Fehlers, kann die Zahlart Masterpass aktuell nicht verwendet werden. Bitte verwenden Sie eine andere Zahlart. Wir bitten um Verzeihung.',
 );
 
 /*

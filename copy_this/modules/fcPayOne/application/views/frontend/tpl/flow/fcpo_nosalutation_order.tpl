@@ -1,5 +1,5 @@
 [{assign var="sFcPoTemplatePath" value=$oViewConf->fcpoGetActiveThemePath()}]
-[{assign var="sFcPoTemplatePath" value=$sFcPoTemplatePath|cat:'/fcpo_amazonpay_address.tpl'}]
+[{assign var="sFcPoTemplatePath" value=$sFcPoTemplatePath|cat:'/fcpo_nosalutation_address.tpl'}]
 
 <div id="orderAddress" class="row">
     <div class="col-xs-12 col-md-6">
@@ -14,9 +14,6 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">
                         [{oxmultilang ident="BILLING_ADDRESS"}]
-                        <button type="submit" class="btn btn-xs btn-warning pull-right submitButton largeButton" title="[{oxmultilang ident="EDIT"}]">
-                            <i class="fa fa-pencil"></i>
-                        </button>
                     </h3>
                 </div>
                 <div class="panel-body">

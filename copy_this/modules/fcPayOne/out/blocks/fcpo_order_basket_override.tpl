@@ -1,9 +1,7 @@
 [{$smarty.block.parent}]
 [{assign var="payment" value=$oView->getPayment()}]
-[{assign var="sMandateText" value=$payment->fcpoGetMandateText()}]
 [{if $payment && method_exists($payment, 'fcpoGetMandateText') && $payment->fcpoGetMandateText()}]
-    [{oxscript include=$oViewConf->fcpoGetModuleJsPath('fcPayOne.js')}]
-    [{oxscript include=$oViewConf->fcpoGetModuleCssPath('fcpayone.css')}]
+    [{assign var="sMandateText" value=$payment->fcpoGetMandateText()}]
     <div id="fcpoSEPAMandate">
         [{if method_exists($oViewConf, 'getActiveTheme') && $oViewConf->getActiveTheme() == 'mobile'}]
             <h3 class="heading section-heading">

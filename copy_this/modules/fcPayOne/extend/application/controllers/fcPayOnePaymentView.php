@@ -167,6 +167,38 @@ class fcPayOnePaymentView extends fcPayOnePaymentView_parent {
     }
 
     /**
+     * Catches success return for validating and processing next steps
+     *
+     * @param void
+     * @return void
+     */
+    public function fcpoMasterpassSuccessReturn() {
+        $oRequest = $this->_oFcpoHelper->getFactoryObject('fcporequest');
+        $aResponse = $oRequest->fcpoSendRequestMasterpassGetCheckout();
+        $blError = ($aResponse['status'] == 'ERROR');
+
+        if ($blError) {
+            $this->_oFcpoHelper->fcpoSetSessionVariable('payerror', -20);
+            return $this->render();
+        }
+
+        $oUser = $this->_oFcpoHelper->getFactoryObject('oxUser');
+        $blSuccess = $oUser->fcpoSetMasterpassUser($aResponse);
+
+        if (!$blSuccess) {
+            $this->_oFcpoHelper->fcpoSetSessionVariable('payerror', -20);
+            return $this->render();
+        }
+
+        // redirect for executing orderprocess
+        $oConfig = $this->getConfig();
+        $sShopUrl = $oConfig->getShopUrl();
+        $sOrderRedirectUrl = $sShopUrl."index.php?cl=order";
+        $oUtils = $this->_oFcpoHelper->fcpoGetUtils();
+        $oUtils->redirect($sOrderRedirectUrl);
+    }
+
+    /**
      * Returning error-text AND delete it from session
      *
      * @param void

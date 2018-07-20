@@ -54,6 +54,265 @@ class Unit_fcPayOne_Extend_Application_Models_fcPayOneUserTest extends OxidTestC
         $property->setValue($object, $value);
     }
 
+
+    /**
+     * Testing fcpoSetMasterpassUser for case user already exists
+     *
+     * @param void
+     * @return void
+     * @throws exception
+     */
+    public function test_fcpoSetMasterpassUser_ExistingUser() {
+        $aMockResponse = array('add_paydata[email]'=>'someemail@somewhere.com');
+
+        $oTestObject = $this->getMock('fcPayOneUser', array(
+            '_fcpoValidateMasterpassUserDataByResponse',
+            '_fcpoUserExists',
+            '_fcpoCreateMasterpassUserByResponse',
+            'getId',
+            '_fcpoGetUserOxidByEmail',
+            '_fcpoAddDeliveryAddress',
+            '_fcpoLogMeIn',
+            'load',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoValidateMasterpassUserDataByResponse')
+            ->will($this->returnValue(true));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoUserExists')
+            ->will($this->returnValue(true));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoCreateMasterpassUserByResponse')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getId')
+            ->will($this->returnValue('someId'));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoGetUserOxidByEmail')
+            ->will($this->returnValue('someId'));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoAddDeliveryAddress')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoLogMeIn')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('load')
+            ->will($this->returnValue(null));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetSessionVariable')
+            ->will($this->returnValue('someWorkorderId'));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(true, $oTestObject->fcpoSetMasterpassUser($aMockResponse));
+    }
+
+    /**
+     * Testing _fcpoLogMeIn for coverage
+     *
+     * @param void
+     * @return void
+     * @throws exception
+     */
+    public function test__fcpoLogMeIn_Coverage() {
+        $oTestObject = $this->getMock('fcPayOneUser', array('getId'));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getId')
+            ->will($this->returnValue('someId'));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoSetSessionVariable')
+            ->will($this->returnValue(null));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(null, $oTestObject->_fcpoLogMeIn());
+    }
+
+    /**
+     * Testing fcpoSetMasterpassUser for case of new user
+     *
+     * @param void
+     * @return void
+     * @throws exception
+     */
+    public function test_fcpoSetMasterpassUser_NewUser() {
+        $aMockResponse = array('add_paydata[email]'=>'someemail@somewhere.com');
+
+        $oTestObject = $this->getMock('fcPayOneUser', array(
+            '_fcpoValidateMasterpassUserDataByResponse',
+            '_fcpoUserExists',
+            '_fcpoCreateMasterpassUserByResponse',
+            'getId',
+            '_fcpoGetUserOxidByEmail',
+            '_fcpoAddDeliveryAddress',
+            '_fcpoLogMeIn',
+            'load',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoValidateMasterpassUserDataByResponse')
+            ->will($this->returnValue(true));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoUserExists')
+            ->will($this->returnValue(false));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoCreateMasterpassUserByResponse')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('getId')
+            ->will($this->returnValue('someId'));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoGetUserOxidByEmail')
+            ->will($this->returnValue('someId'));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoAddDeliveryAddress')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoLogMeIn')
+            ->will($this->returnValue(null));
+        $oTestObject
+            ->expects($this->any())
+            ->method('load')
+            ->will($this->returnValue(null));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetSessionVariable')
+            ->will($this->returnValue('someWorkorderId'));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(true, $oTestObject->fcpoSetMasterpassUser($aMockResponse));
+    }
+
+    /**
+     * Testing _fcpoValidateMasterpassUserDataByResponse for coverage
+     *
+     * @param void
+     * @return void
+     * @throws exception
+     */
+    public function test__fcpoValidateMasterpassUserDataByResponse_Coverage() {
+        $oTestObject = oxNew('fcPayOneUser');
+
+        $aMockResponse = array(
+            'add_paydata[email]'=>'someValue',
+            'add_paydata[firstname]'=>'someValue',
+            'add_paydata[lastname]'=>'someValue',
+            'add_paydata[country]'=>'someValue',
+            'add_paydata[zip]'=>'someValue',
+            'add_paydata[city]'=>'someValue',
+            'add_paydata[street]'=>'someValue',
+        );
+
+        $oMockBasket = $this->getMock('oxBasket', array('setPayment'));
+        $oMockBasket
+            ->expects($this->any())
+            ->method('setPayment')
+            ->will($this->returnValue(null));
+
+
+        $oMockSession = $this->getMock('oxSession', array('getBasket'));
+        $oMockSession
+            ->expects($this->any())
+            ->method('getBasket')
+            ->will($this->returnValue($oMockBasket));
+
+        $oHelper =
+            $this
+                ->getMockBuilder('fcpohelper')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $oHelper
+            ->expects($this->any())
+            ->method('fcpoGetSession')
+            ->will($this->returnValue($oMockSession));
+        $this->invokeSetAttribute($oTestObject, '_oFcpoHelper', $oHelper);
+
+        $this->assertEquals(
+            true,
+            $oTestObject->_fcpoValidateMasterpassUserDataByResponse($aMockResponse)
+        );
+    }
+
+    /**
+     * Testing _fcpoCreateMasterpassUserByResponse for coverage
+     *
+     * @param void
+     * @return void
+     * @throws exception
+     */
+    public function test__fcpoCreateMasterpassUserByResponse_Coverage() {
+        $aMockSplittedStreet = array(
+            'street'=>'someStreet',
+            'streetnr'=>'someStreetNr',
+        );
+
+        $sMockCountryId = 'someCountryId';
+
+        $aMockResponse = array(
+            'add_paydata[email]'=>'someValue',
+            'add_paydata[firstname]'=>'someValue',
+            'add_paydata[lastname]'=>'someValue',
+            'add_paydata[country]'=>'someValue',
+            'add_paydata[zip]'=>'someValue',
+            'add_paydata[city]'=>'someValue',
+            'add_paydata[street]'=>'someValue',
+        );
+
+        $oTestObject = $this->getMock('fcPayOneUser', array(
+            '_fcpoGetCountryIdByIso2',
+            '_fcpoSplitStreetAndStreetNr',
+            'save',
+        ));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoGetCountryIdByIso2')
+            ->will($this->returnValue($sMockCountryId));
+        $oTestObject
+            ->expects($this->any())
+            ->method('_fcpoSplitStreetAndStreetNr')
+            ->will($this->returnValue($aMockSplittedStreet));
+        $oTestObject
+            ->expects($this->any())
+            ->method('save')
+            ->will($this->returnValue(null));
+
+        $this->assertEquals(null, $oTestObject->_fcpoCreateMasterpassUserByResponse($aMockResponse));
+    }
+
     /**
      * Testing fcpoSetAmazonOrderReferenceDetailsResponse for coverage
      *

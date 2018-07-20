@@ -347,6 +347,7 @@ class fcpayone_events
         'fcporp_bill' => 'Ratepay Rechnungskauf',
         'fcpoamazonpay' => 'AmazonPay',
         'fcpo_secinvoice' => 'Gesicherter Rechnungskauf',
+        'fcpomasterpass' => 'Masterpass',
     );
 
     /**

@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="[{$oViewConf->fcpoGetModuleCssPath('fcpoamazon.css')}]">
+ <link rel="stylesheet" type="text/css" href="[{$oViewConf->fcpoGetModuleCssPath('fcpoamazon.css')}]">
 
 [{if $sAmazonButtonId}]
     [{assign var="iAmzButtonIncluded" value=$iAmzButtonIncluded+1}]

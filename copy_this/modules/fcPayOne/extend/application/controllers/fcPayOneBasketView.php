@@ -69,7 +69,9 @@ class fcPayOneBasketView extends fcPayOneBasketView_parent {
         $mReturn = false;
         $sMessage = $this->_oFcpoHelper->fcpoGetRequestParameter('fcpoerror');
         if ($sMessage) {
+            $oLang = $this->_oFcpoHelper->fcpoGetLang();
             $sMessage = urldecode($sMessage);
+            $sMessage = $oLang->translateString($sMessage);
             $mReturn = $sMessage;
             $this->_oFcpoHelper->fcpoDeleteSessionVariable('payerrortext');
             $this->_oFcpoHelper->fcpoDeleteSessionVariable('payerror');

@@ -136,6 +136,16 @@ $aModule = array(
     ),
     'blocks'        => array(
         array(
+            'template' => 'layout/base.tpl',
+            'block' => 'base_js',
+            'file' => 'fcpo_base_js_extend'
+        ),
+        array(
+            'template' => 'layout/base.tpl',
+            'block' => 'base_style',
+            'file' => 'fcpo_base_css_extend'
+        ),
+        array(
             'template' => 'page/checkout/basket.tpl',
             'block' => 'checkout_basket_main',
             'file' => 'fcpo_basket_override'
