@@ -33,7 +33,7 @@
                 [{if $oView->fcpoUseCVC()}]
                     <li>
                         <label for="cvcInput">[{oxmultilang ident="FCPO_CARD_SECURITY_CODE"}]</label>
-                        <span id="cardcvc2" class="inputIframe"></span>
+                        <span id="containercardcvc2" class="inputIframe"></span>
                     </li>
                 [{/if}]
                 <li>

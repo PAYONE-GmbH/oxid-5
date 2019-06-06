@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="cvcInput" class="req control-label col-lg-3">[{oxmultilang ident="FCPO_CARD_SECURITY_CODE"}]</label>
                         <div class="col-lg-9">
-                            <span id="cardcvc2" class="inputIframe"></span>
+                            <span id="containercardcvc2" class="inputIframe"></span>
                         </div>
                     </div>
                 [{/if}]
