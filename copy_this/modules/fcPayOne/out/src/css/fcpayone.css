@@ -182,6 +182,12 @@
     text-align: center;
 }
 
+.fcpoCreditratingApprovalText {
+    margin: 10px 0 10px 0;
+    padding: 10px 10px 10px 5px;
+    background-color: beige;
+}
+
 @media screen and (min-width: 0px) and (max-width: 961px) {
     .fcCol {
         float: left;

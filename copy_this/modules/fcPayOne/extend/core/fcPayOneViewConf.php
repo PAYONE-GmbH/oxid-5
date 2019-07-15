@@ -651,4 +651,38 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
 
         return $blIsPayOne;
     }
+
+    /**
+     * @return bool
+     */
+    public function fcpoShouldDisplayCreditratingInfo()
+    {
+        $oConfig = $this->getConfig();
+        $sBoniCheckActive = $oConfig->getConfigParam('sFCPOBonicheck');
+
+        return $sBoniCheckActive != -1;
+    }
+
+    /**
+     * @return string
+     */
+    public function fcpoGetApprovalText() {
+
+        $iLangId = $this->fcGetLangId();
+        $oConfig = $this->getConfig();
+        return $oConfig->getConfigParam('sFCPOApprovalText_' . $iLangId);
+    }
+
+    /**
+     * Return language id
+     *
+     * @return int
+     */
+    public function fcGetLangId() {
+        $oLang = $this->_oFcpoHelper->fcpoGetLang();
+        $iLang = $oLang->getBaseLanguage();
+        $iLang = ( $iLang === null && isAdmin() ) ? $oLang->getTplLanguage() : $iLang;
+
+        return $iLang;
+    }
 }

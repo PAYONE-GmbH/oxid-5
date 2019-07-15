@@ -239,6 +239,11 @@ $aModule = array(
             'file' => 'fcpo_payment_errors',
         ),
         array(
+            'template' => 'form/user_checkout_change.tpl',
+            'block' => 'user_checkout_change_next_step_top',
+            'file' => 'fcpo_checkout_creditrating_approval',
+        ),
+        array(
             'template' => 'form/login.tpl',
             'block' => 'checkout_options_login_text',
             'file' => 'fcpo_checkout_options_login_text',
