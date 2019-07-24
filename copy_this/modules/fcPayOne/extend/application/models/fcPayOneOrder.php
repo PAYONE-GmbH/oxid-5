@@ -911,7 +911,7 @@ class fcPayOneOrder extends fcPayOneOrder_parent {
         if ($sWorkorderId) {
             $this->oxorder__fcpoworkorderid = new oxField($sWorkorderId, oxField::T_RAW);
         }
-        $this->_oFcpoDb->Execute("UPDATE fcporefnr SET fcpo_txid = '" . $sTxid . "' WHERE fcpo_refnr = '" . $this->_oFcpoHelper->fcpoGetRequestParameter('refnr') . "'");
+        $this->_oFcpoDb->Execute("UPDATE fcporefnr SET fcpo_txid = '" . $sTxid . "' WHERE concat(FCPO_REFPREFIX, FCPO_REFNR) = '" . $this->_oFcpoHelper->fcpoGetRequestParameter('refnr') . "'");
         $this->_oFcpoHelper->fcpoDeleteSessionVariable('fcpoOrderNr');
         $this->_oFcpoHelper->fcpoDeleteSessionVariable('fcpoTxid');
         $this->_oFcpoHelper->fcpoDeleteSessionVariable('fcpoRefNr');
@@ -1610,6 +1610,10 @@ class fcPayOneOrder extends fcPayOneOrder_parent {
         $this->oxorder__fcpoauthmode = new oxField($sAuthorizationType, oxField::T_RAW);
         $this->oxorder__fcpomode = new oxField($sMode, oxField::T_RAW);
         $this->oxorder__fcpoordernotchecked = new oxField($iOrderNotChecked, oxField::T_RAW);
+
+        $this->_oFcpoDb->Execute("UPDATE fcporefnr SET fcpo_txid = '{$aResponse['txid']}' WHERE concat(FCPO_REFPREFIX, FCPO_REFNR) = '" . $sRefNr . "'");
+
+
         $this->_oFcpoDb->Execute("UPDATE fcporefnr SET fcpo_txid = '{$aResponse['txid']}' WHERE fcpo_refnr = '" . $sRefNr . "'");
         if ($sPaymentId == 'fcpobarzahlen' && isset($aResponse['add_paydata[instruction_notes]'])) {
             $sBarzahlenHtml = urldecode($aResponse['add_paydata[instruction_notes]']);
