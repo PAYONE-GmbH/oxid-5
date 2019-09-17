@@ -223,6 +223,7 @@ $aLang = array(
     'FCPO_PAYMENTTYPE'                          => "Zahlungsart:",
     'FCPO_SHIPPINGCOST'                         => "Versandkosten",
     'FCPO_PRODUCT_CAPTURE'                      => "Abbuchen",
+    'FCPO_PRODUCT_DEBIT'                        => "Gutschrift",
     'FCPO_PRODUCT_AMOUNT'                       => "Menge",
     'FCPO_PRODUCT_PRICE'                        => "Einzelpreis",
     'FCPO_PRODUCT_TITLE'                        => "Produkt",

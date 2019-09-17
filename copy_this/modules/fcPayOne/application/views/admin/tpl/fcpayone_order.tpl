@@ -316,7 +316,7 @@
                                     <td colspan="2">
                                         <table border="1" cellpadding="5" callspacing="5">
                                             <tr>
-                                                <th>[{ oxmultilang ident="FCPO_PRODUCT_CAPTURE" }]</th>
+                                                <th>[{ oxmultilang ident="FCPO_PRODUCT_DEBIT" }]</th>
                                                 <th>[{ oxmultilang ident="FCPO_PRODUCT_AMOUNT" }]</th>
                                                 <th>[{ oxmultilang ident="FCPO_PRODUCT_PRICE" }]</th>
                                                 <th>[{ oxmultilang ident="FCPO_PRODUCT_TITLE" }]</th>

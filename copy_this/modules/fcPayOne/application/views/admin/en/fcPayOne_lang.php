@@ -214,6 +214,7 @@ $aLang = array(
     'FCPO_PAYMENTTYPE'                          => "Type of Payment:",
     'FCPO_SHIPPINGCOST'                         => "Shipping cost",
     'FCPO_PRODUCT_CAPTURE'                      => "Capture",
+    'FCPO_PRODUCT_DEBIT'                        => "Debit",
     'FCPO_PRODUCT_AMOUNT'                       => "Amount",
     'FCPO_PRODUCT_PRICE'                        => "Unit price",
     'FCPO_PRODUCT_TITLE'                        => "Product",
