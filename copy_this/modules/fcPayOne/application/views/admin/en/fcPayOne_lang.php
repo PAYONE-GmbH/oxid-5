@@ -199,6 +199,7 @@ $aLang = array(
     'FCPO_HELP_DEFAULT_BONI'                    => 'This credit index, the customer receives when registering <br> Purpose:. If the customer has not yet been tested and the test is done only at a certain value, this is the index of credit until the first real test will be considered <br. > <br> If this field is left blank the OXID standard is set (1000).',
     'FCPO_SETTLE_ACCOUNT'                       => 'Perform settlement',
     'FCPO_HELP_SETTLE_ACCOUNT'                  => 'Disable checkbox for partial "Perform settlement" . Be activated during the last partial delivery has this option to perform a balancing accounts. Please note that this function only for ELV, in advance, online payment and billing is available. Also this feature for credit card prior to activation of PAYONE is available.',
+    'FCPO_PREAUTHORIZED_AMOUNT'                 => 'Preauthorized amount',
     'FCPO_PRESAVE_ORDER'                        => 'Save order before authorization',
     'FCPO_REDUCE_STOCK'                         => 'Reduce stock',
     'FCPO_HELP_REDUCE_STOCK'                    => 'This configuration only has effect when "Save order before authorization" is activated and the customer is redirected to an external paymentservice ( i.e. Sofortüberweisung, PayPal or creditcard with 3D Secure ). This configuration defines if the stock for the articles is reduced before or after the redirect to the external paymentservice.',
