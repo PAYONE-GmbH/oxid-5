@@ -423,6 +423,27 @@ $aLang = array(
     'FCPO_PAYDIREKT_EXPRESS_DELIVERY_NONE'      => 'No choice (OXID standard method will be used)',
     'FCPO_HELP_PAYDIREKT_DELIVERYSET'           => 'Please choose the matching deliveryset for your PaydirektExpress orders',
     'FCPO_PAYDIREKT_DELIVERYSET'                => 'Deliveryset to use for PaydirektExpress orders',
+    'FCPO_CONFIG_GROUP_PAYOLUTION'              => 'Paysafe Pay Later™',
+    'FCPO_HELP_PAYOLUTION_AUTH_SECRET'          => 'Password, which is required to query contract content (eg installments) via a secure channel.',
+    'FCPO_HELP_PAYOLUTION_AUTH_USER'            => 'User name, which is required to query contract content (eg installments) via a secure channel',
+    'FCPO_HELP_PAYOLUTION_B2BMODE'              => 'When the B2B mode is activated and the company name specified by the user, the VAT ID no. is requested. For B2C customers the date of birth is requested instead.',
+    'FCPO_HELP_PAYOLUTION_COMPANY'              => 'The company name entered here is used when the authorization text is displayed.',
+    'FCPO_PAYOLUTION_AUTH_SECRET'               => 'Paysafe Pay Later™ password',
+    'FCPO_PAYOLUTION_AUTH_USER'                 => 'Paysafe Pay Later™ user name',
+    'FCPO_PAYOLUTION_B2BMODE'                   => 'Run Paysafe Pay Later™ in B2B mode',
+    'FCPO_PAYOLUTION_COMPANY'                   => 'Company name',
+    'FCPO_PAYOLUTION_MODE'                      => 'Run Paysafe Pay Later™ in test mode',
+    'FCPO_CONFIG_GROUP_RATEPAY'                 => 'RatePay',
+    'FCPO_PROFILES_RATEPAY'                     => 'RatePay profiles',
+    'FCPO_PROFILES_RATEPAY_CURRENCY'            => 'Currency',
+    'FCPO_PROFILES_RATEPAY_PAYMENT'             => 'RatePay payment method',
+    'FCPO_RATEPAY_ADD_PROFILE'                  => 'Add profile',
+    'FCPO_RATEPAY_B2BMODE'                      => 'Use RatePay in B2B mode',
+    'FCPO_RATEPAY_DELETE_PROFILE'               => 'Delete profile',
+    'FCPO_RATEPAY_GENERAL_SETTINGS'             => 'RatePay Settings',
+    'FCPO_RATEPAY_PROFILE_DETAILS_FOR_ID'       => 'Profile configuration for ShopID',
+    'FCPO_RATEPAY_PROFILE_TOGGLE_DETAILS'       => 'Show or hide the details of this profile',
+
 );
 
 /*
