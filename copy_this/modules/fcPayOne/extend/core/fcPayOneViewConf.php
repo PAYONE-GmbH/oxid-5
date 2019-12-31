@@ -557,6 +557,13 @@ class fcPayOneViewConf extends fcPayOneViewConf_parent {
         return $blReturn;
     }
 
+    public function fcpoLoadMasterPassJsLib()
+    {
+        $oPayment = $this->_oFcpoHelper->getFactoryObject('oxpayment');
+        $oPayment->load('fcpomasterpass');
+        return $oPayment->oxpayments__oxactive->value == 1;
+    }
+
     /**
      * Template getter for receiving masterpass button url
      *

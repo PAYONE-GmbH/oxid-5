@@ -1,3 +1,5 @@
 [{$smarty.block.parent}]
-[{oxscript include=$oViewConf->fcpoGetMasterpassJsLibUrl()}]
+[{if $oViewConf->fcpoLoadMasterPassJsLib()}]
+    [{oxscript include=$oViewConf->fcpoGetMasterpassJsLibUrl()}]
+[{/if}]
 [{oxscript include=$oViewConf->fcpoGetModuleJsPath('fcPayOne.js')}]
