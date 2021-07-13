@@ -262,6 +262,6 @@ if(class_exists('fcpohelper')) {
                 'block' => 'admin_roles_bemain_form',
                 'file' => 'fcpo_admin_roles_bemain_form',
         );
-        $aModule['extend'][] = array('roles_bemain' => 'fcPayOne/extend/application/controllers/admin/fcPayOneRolesBeMain');
+        $aModule['extend']['roles_bemain'] = 'fcPayOne/extend/application/controllers/admin/fcPayOneRolesBeMain';
     }
 }
